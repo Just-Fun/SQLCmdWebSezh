@@ -10,7 +10,7 @@ import java.util.*;
  * Created by POSITIV on 16.09.2015.
  */
 @Component
-@Scope(value = "prototype")
+@Scope(value = "prototype") // каждый раз новый инстанс, не синглтон
 public class JDBCDatabaseManager implements DatabaseManager {
 
     public static final String JDBC_POSTGRESQL_URL = "jdbc:postgresql://localhost:5432/";

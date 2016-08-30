@@ -294,7 +294,8 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("message", e.getMessage());
         try {
             e.printStackTrace();
-            jsp("error.jsp", request, response);
+//            jsp("error.jsp", request, response);
+            jsp("error", request, response);
         } catch (Exception e1) {
             e.printStackTrace();
         }
