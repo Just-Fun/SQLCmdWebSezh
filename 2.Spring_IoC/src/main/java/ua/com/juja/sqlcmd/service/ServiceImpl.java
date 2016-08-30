@@ -41,7 +41,6 @@ public class ServiceImpl implements Service {
                 row.add(dataSet.get(column).toString());
             }
         }
-
         return result;
     }
 }

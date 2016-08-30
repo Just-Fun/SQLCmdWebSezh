@@ -10,9 +10,11 @@
     <context:annotation-config/>
     <context:component-scan base-package="ua.com.juja.sqlcmd.service"/>
 
-    // по умолчанию каждый из бинов - это Синглтон
+<!--    по умолчанию каждый из бинов - это Синглтон-->
     <bean id="databaseManagerFactory" class="ua.com.juja.sqlcmd.service.DatabaseManagerFactoryImpl">
         <property name="className" value="ua.com.juja.sqlcmd.model.JDBCDatabaseManager"/>
     </bean>
+
+
 
 </beans>
