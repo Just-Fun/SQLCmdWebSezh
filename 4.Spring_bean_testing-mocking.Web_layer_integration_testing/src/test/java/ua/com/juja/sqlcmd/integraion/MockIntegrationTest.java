@@ -21,14 +21,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * User: oleksandr.baglai
- * Date: 11/18/12
- * Time: 4:47 PM
- */
 public class MockIntegrationTest {
     private WebDriver driver;
     private SpringMockerJettyRunner runner;
@@ -59,7 +53,7 @@ public class MockIntegrationTest {
                 .thenReturn(manager);
 
         when(service.tables(manager))
-                .thenReturn(new LinkedHashSet<String>(Arrays.asList("table1", "table2")));
+                .thenReturn(new LinkedHashSet<>(Arrays.asList("table1", "table2")));
 
         // when
         driver.get(runner.getUrl());
@@ -79,7 +73,7 @@ public class MockIntegrationTest {
         // then
         assertLinks("[table1, table2]",
                 "[/sqlcmd/find?table=table1, " +
-                "/sqlcmd/find?table=table2]");
+                        "/sqlcmd/find?table=table2]");
     }
 
     private void assertLinks(String expectedNames, String expectedUrls) {

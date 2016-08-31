@@ -1,8 +1,6 @@
 package ua.com.juja.sqlcmd.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.service.Service;
@@ -70,7 +68,8 @@ public class MainServlet extends HttpServlet {
 
     private String getAction(HttpServletRequest req) {
         String requestURI = req.getRequestURI();
-        return requestURI.substring(req.getContextPath().length(), requestURI.length());
+//        return requestURI.substring(req.getContextPath().length(), requestURI.length());
+        return requestURI.substring(req.getContextPath().length());
     }
 
     @Override
