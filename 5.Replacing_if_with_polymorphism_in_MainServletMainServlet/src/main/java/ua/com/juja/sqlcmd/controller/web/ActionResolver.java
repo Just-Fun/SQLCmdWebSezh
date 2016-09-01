@@ -23,7 +23,8 @@ public class ActionResolver {
     public ActionResolver() {
         actions = new LinkedList<>();
 
-        Reflections reflections = new Reflections(ErrorAction.class.getPackage().getName());
+//        Reflections reflections = new Reflections(ErrorAction.class.getPackage().getName());
+        Reflections reflections = new Reflections("");
         Set<Class<? extends AbstractAction>> classes =
                 reflections.getSubTypesOf(AbstractAction.class);
 
@@ -33,7 +34,8 @@ public class ActionResolver {
             }
 
             try {
-                AbstractAction action = aClass.getConstructor().newInstance(service);
+//                commands.add(command.getConstructor(DatabaseManager.class, View.class).newInstance(manager, view));
+                AbstractAction action = aClass.getConstructor(Service.class).newInstance(service);
                 actions.add(action);
             } catch (Exception e) {
                 e.printStackTrace();

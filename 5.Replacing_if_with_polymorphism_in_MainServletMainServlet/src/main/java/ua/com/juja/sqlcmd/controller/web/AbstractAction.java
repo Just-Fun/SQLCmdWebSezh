@@ -1,5 +1,6 @@
 package ua.com.juja.sqlcmd.controller.web;
 
+import org.springframework.stereotype.Component;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.service.Service;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 /**
  * Created by oleksandr.baglai on 09.12.2015.
  */
+@Component
 public abstract class AbstractAction implements Action {
 
     protected Service service;
