@@ -19,10 +19,9 @@ public class MainController {
     @Autowired
     private Service service;
 
-    @RequestMapping(value = {"/", "/menu**"}, method = RequestMethod.GET)
-    public String menu(Model model) {
-        model.addAttribute("items", service.commandsList());
-        return "menu";
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String main() {
+        return "redirect:/menu";
     }
 
     @RequestMapping(value = "/help", method = RequestMethod.GET)
@@ -59,19 +58,6 @@ public class MainController {
         }
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model, HttpSession session) {
-        DatabaseManager manager = getManager(session);
-
-        if (manager == null) {
-            session.setAttribute("from-page", "/list");
-            return "redirect:/connect";
-        }
-
-        model.addAttribute("list", service.tables(manager));
-        return "list";
-    }
-
     @RequestMapping(value = "/tables/{table}", method = RequestMethod.GET)
     public String tables(Model model,
                        @PathVariable(value = "table") String table,
@@ -88,7 +74,37 @@ public class MainController {
         return "find";
     }
 
+    @RequestMapping(value = "/actions/{userName}", method = RequestMethod.GET)
+    public String actions(Model model,
+                         @PathVariable(value = "userName") String userName) {
+        model.addAttribute("actions", service.getAllFor(userName));
+
+        return "actions";
+    }
+
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String menu(Model model) {
+        model.addAttribute("items", service.commandsList());
+        return "menu";
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model, HttpSession session) {
+        DatabaseManager manager = getManager(session);
+
+        if (manager == null) {
+            session.setAttribute("from-page", "/list");
+            return "redirect:/connect";
+        }
+
+        model.addAttribute("list", service.tables(manager));
+        return "list";
+    }
+
     private DatabaseManager getManager(HttpSession session) {
         return (DatabaseManager) session.getAttribute("db_manager");
     }
+
+    // TODO со странички http://localhost:8080/sqlcmd/tables/user
+    // мереходим на menu то видим ошибку
 }
