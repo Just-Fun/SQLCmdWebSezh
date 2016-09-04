@@ -1,12 +1,20 @@
 package ua.com.juja.sqlcmd;
 
 /**
- * Created by Serzh on 9/2/16.
+ * Created by Serzh on 9/4/16.
  */
 public class Temp {
 
 
-    /*- Database: sqlcmd_log
+    /*
+
+    CREATE TABLE student (id_pk SERIAL NOT NULL PRIMARY KEY,
+name varchar(225) NOT NULL,
+age varchar(225) NOT NULL,
+id int NOT NULL)
+
+
+    - Database: sqlcmd_log
 
 -- DROP DATABASE sqlcmd_log;
 
