@@ -67,7 +67,7 @@ FROM (SELECT DISTINCT user_name, db_name FROM user_actions) subquery
 
 UPDATE user_actions
 SET database_connection_id=subquery.id
-FROM (SELECT id FROM database_connection) AS subquery
+FROM (SELECT id, user_name,db_name FROM database_connection) AS subquery
 WHERE user_actions.user_name=subquery.user_name AND user_actions.db_name=subquery.db_name;
 
 -- drop unused columns
