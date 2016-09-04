@@ -69,7 +69,7 @@ public abstract class ServiceImpl implements Service {
         userActions.createAction(manager.getDatabaseName(), manager.getUserName(), "TABLES");
         return manager.getTableNames();
     }
-
+/*
     @Override // TODO удалить это оно в демо целях
     public DatabaseConnection getDataFor(String userName, String dbName) {
         DatabaseConnection databaseConnection = databaseConnections.findByUserNameAndDbName(userName, dbName);
@@ -77,7 +77,7 @@ public abstract class ServiceImpl implements Service {
 //        databaseConnection.getUserActions().get(1).setAction("CHANGED");
 //        databaseConnection.getUserActions().clear();
         return databaseConnection;
-    }
+    }*/
 
     @Override
     public List<UserAction> getAllFor(String userName) {

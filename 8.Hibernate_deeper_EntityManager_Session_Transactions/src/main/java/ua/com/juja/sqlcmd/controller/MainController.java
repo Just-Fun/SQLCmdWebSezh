@@ -98,9 +98,9 @@ public class MainController {
             return "redirect:/connect";
         }
 
-        // TODO удалить это - оно в демо целях
+      /*  // TODO удалить это - оно в демо целях
         DatabaseConnection databaseConnection = service.getDataFor("postgres", "sqlcmd");
-        System.out.println(databaseConnection.getUserActions().toString());
+        System.out.println(databaseConnection.getUserActions().toString());*/
 
         model.addAttribute("list", service.tables(manager));
         return "list";

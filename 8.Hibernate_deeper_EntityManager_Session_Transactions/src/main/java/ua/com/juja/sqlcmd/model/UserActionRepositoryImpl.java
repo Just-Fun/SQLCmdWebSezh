@@ -29,6 +29,9 @@ public class UserActionRepositoryImpl implements UserActionRepositoryCustom {
             databaseConnection = databaseConnections.save(new DatabaseConnection(userName, databaseName));
         }
         UserAction userAction = new UserAction(action, databaseConnection);
+
+//        entityManager.persist(userAction);
+        // получаем сессию Хибернета
         Session session = (Session) entityManager.getDelegate();
         session.persist(userAction);
     }
