@@ -26,7 +26,7 @@ public abstract class ServiceImpl implements Service {
 
     @Override
     public List<String> commandsList() {
-        return Arrays.asList("help", "list");
+        return Arrays.asList("help", "list", "allActions");
     }
 
     @Override
@@ -59,7 +59,7 @@ public abstract class ServiceImpl implements Service {
             }
         }
 
-        userActions.createAction(manager.getDatabaseName(), manager.getUserName(), "FIND(" + tableName +  ")");
+        userActions.createAction(manager.getDatabaseName(), manager.getUserName(), "FIND(" + tableName + ")");
 
         return result;
     }
@@ -86,5 +86,10 @@ public abstract class ServiceImpl implements Service {
         }
 
         return userActions.findByUserName(userName);
+    }
+
+    @Override
+    public List<UserAction> getAll() {
+        return userActions.findAll();
     }
 }

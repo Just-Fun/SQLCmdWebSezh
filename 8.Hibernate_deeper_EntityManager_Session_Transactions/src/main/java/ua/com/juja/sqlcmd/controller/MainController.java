@@ -77,10 +77,17 @@ public class MainController {
 
     @RequestMapping(value = "/actions/{userName}", method = RequestMethod.GET)
     public String actions(Model model,
-                         @PathVariable(value = "userName") String userName) {
+                          @PathVariable(value = "userName") String userName) {
         model.addAttribute("actions", service.getAllFor(userName));
 
         return "actions";
+    }
+
+    @RequestMapping(value = "/allActions", method = RequestMethod.GET)
+    public String allActions(Model model) {
+        model.addAttribute("allActions", service.getAll());
+
+        return "allActions";
     }
 
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
