@@ -5,6 +5,7 @@
         <title>SQLCmd</title>
     </head>
     <body>
+    <h4>Databases:</h4>
         <c:forEach items="${databases}" var="name">
             <a href="database/${name}">${name}</a><br>
         </c:forEach>

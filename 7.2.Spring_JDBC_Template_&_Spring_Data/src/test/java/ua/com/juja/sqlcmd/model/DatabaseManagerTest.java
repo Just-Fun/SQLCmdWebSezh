@@ -1,7 +1,6 @@
 package ua.com.juja.sqlcmd.model;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -21,7 +20,7 @@ public abstract class DatabaseManagerTest {
     @Before
     public void setup() {
         manager = getDatabaseManager();
-        manager.connect("postgres", "postgres", "postgres");
+        manager.connect("sqlcmd", "postgres", "postgres");
     }
 
     public abstract DatabaseManager getDatabaseManager();
@@ -36,17 +35,7 @@ public abstract class DatabaseManagerTest {
         Set<String> tableNames = manager.getTableNames();
 
         // then
-        assertEquals("[employees, nullproba, proba12, nullproba2, proba3, proba4, proba5, rt, gt, tab, table12, test123, test15, user89, test, id, user]", tableNames.toString());
-    }
-
-    @Test
-    public void testGetDatabasesNames() {
-
-        // when
-        Set<String> bases = manager.getDatabasesNames();
-
-        // then
-        assertEquals("[postgres, mydb, test89, test, test98, base1, bs12, springdb, postgrestestnew, june17, пе, test1]", bases.toString());
+        assertEquals("[user, test]", tableNames.toString());
     }
 
     @Test
@@ -71,38 +60,48 @@ public abstract class DatabaseManagerTest {
     }
 
     @Test
-    public void testGetSize_whenSiseIs1() {
+    public void testGetSize_whenSizeIs0() {
         // given
         manager.clear("user");
 
-        // when
+        // when then
+        assertEquals(0, manager.getSize("user"));
+    }
+
+    @Test
+    public void testGetSize_whenSizeIs1() {
+        // given
+        manager.clear("user");
+
         DataSet input = new DataSetImpl();
         input.put("name", "Stiven");
         input.put("password", "pass");
         input.put("id", 13);
         manager.create("user", input);
 
+        // when then
         assertEquals(1, manager.getSize("user"));
     }
 
     @Test
-    public void testGetSize_whenSiseIs2() {
+    public void testGetSize_whenSizeIs2() {
         // given
         manager.clear("user");
 
-        // when
         DataSet input = new DataSetImpl();
         input.put("name", "Stiven");
         input.put("password", "pass");
         input.put("id", 13);
         manager.create("user", input);
 
+
         DataSet input2 = new DataSetImpl();
-        input2.put("name", "Stiven2");
-        input2.put("password", "pass2");
+        input2.put("name", "Eva");
+        input2.put("password", "***");
         input2.put("id", 14);
         manager.create("user", input2);
 
+        // when then
         assertEquals(2, manager.getSize("user"));
     }
 

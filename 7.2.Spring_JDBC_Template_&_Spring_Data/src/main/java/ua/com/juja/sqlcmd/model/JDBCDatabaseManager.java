@@ -22,9 +22,8 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public List<DataSet> getTableData(String tableName) {
-        return template.query(String.format("SELECT * FROM public.%s", tableName),
+        return template.query("SELECT * FROM public." + tableName,
                 new RowMapper<DataSet>() {
-                    @Override
                     public DataSet mapRow(ResultSet rs, int rowNum) throws SQLException {
                         ResultSetMetaData rsmd = rs.getMetaData();
                         DataSet dataSet = new DataSetImpl();
@@ -33,36 +32,24 @@ public class JDBCDatabaseManager implements DatabaseManager {
                         }
                         return dataSet;
                     }
-                });
+                }
+            );
     }
 
     @Override
     public int getSize(String tableName) {
-        return template.queryForObject(String.format("SELECT COUNT(*) FROM public.%s", tableName), Integer.class);
+        return template.queryForObject("SELECT COUNT(*) FROM public." + tableName, Integer.class);
     }
 
     @Override
     public Set<String> getTableNames() {
-        return new LinkedHashSet<>(template.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
-                        "AND table_type='BASE TABLE'",
+        return new LinkedHashSet<>(template.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'",
                 new RowMapper<String>() {
-                    @Override
                     public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                         return rs.getString("table_name");
                     }
-                }));
-    }
-
-    @Override
-    public Set<String> getDatabasesNames() {
-
-        return new LinkedHashSet<>(template.query("SELECT datname FROM pg_database WHERE datistemplate = false;",
-                new RowMapper<String>() {
-                    @Override
-                    public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        return rs.getString("datname");
-                    }
-                }));
+                }
+        ));
     }
 
     @Override
@@ -102,8 +89,8 @@ public class JDBCDatabaseManager implements DatabaseManager {
         String tableNames = StringUtils.collectionToDelimitedString(input.getNames(), ",");
         String values = StringUtils.collectionToDelimitedString(input.getValues(), ",", "'", "'");
 
-        template.update(String.format("INSERT INTO public.%s (%s)" +
-                "VALUES (%s)", tableName, tableNames, values));
+        template.update(String.format("INSERT INTO public.%s (%s) VALUES (%s)",
+                tableName, tableNames, values));
     }
 
     @Override
@@ -111,27 +98,34 @@ public class JDBCDatabaseManager implements DatabaseManager {
         String tableNames = StringUtils.collectionToDelimitedString(newValue.getNames(), ",", "", " = ?");
 
         String sql = "UPDATE public." + tableName + " SET " + tableNames + " WHERE id = ?";
-        LinkedList<Object> objects = new LinkedList<>(newValue.getValues());
+
+        List<Object> objects = new LinkedList<>(newValue.getValues());
         objects.add(id);
+
         template.update(sql, objects.toArray());
     }
 
     @Override
     public Set<String> getTableColumns(String tableName) {
-
-        return new LinkedHashSet<>(template.query(String.format("SELECT * FROM information_schema.columns " +
-                        "WHERE table_schema = 'public' AND table_name = '%s'", tableName),
+        return new LinkedHashSet<>(template.query("SELECT * FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '" + tableName + "'",
                 new RowMapper<String>() {
-                    @Override
                     public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                         return rs.getString("column_name");
                     }
-                }));
+                }
+        ));
     }
 
     @Override
-    public boolean isConnected() {
-        return connection != null;
+    public Set<String> getDatabasesNames() {
+
+        return new LinkedHashSet<>(template.query("SELECT datname FROM pg_database WHERE datistemplate = false;",
+                new RowMapper<String>() {
+                    @Override
+                    public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return rs.getString("datname");
+                    }
+                }));
     }
 
     @Override
@@ -143,6 +137,11 @@ public class JDBCDatabaseManager implements DatabaseManager {
         } catch (SQLException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }*/
+    }
+
+    @Override
+    public boolean isConnected() {
+        return connection != null;
     }
 
     @Override

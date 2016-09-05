@@ -58,7 +58,7 @@ public class MockIntegrationTest {
         when(service.connect(anyString(), anyString(), anyString()))
                 .thenReturn(manager);
 
-        when(/*service.tables(manager)*/manager.getTableNames())
+        when(service.tables(manager))
                 .thenReturn(new LinkedHashSet<String>(Arrays.asList("table1", "table2")));
 
         // when

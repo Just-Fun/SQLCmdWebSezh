@@ -18,35 +18,35 @@ public class Connection {
         this.fromPage = page;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
-    }
-
-    public void setFromPage(String fromPage) {
-        this.fromPage = fromPage;
-    }
-
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getDbName() {
         return dbName;
     }
 
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
     public String getFromPage() {
         return fromPage;
+    }
+
+    public void setFromPage(String fromPage) {
+        this.fromPage = fromPage;
     }
 }

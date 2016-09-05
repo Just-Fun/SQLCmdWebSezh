@@ -2,10 +2,9 @@ package ua.com.juja.sqlcmd.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.com.juja.sqlcmd.model.DataSet;
-import ua.com.juja.sqlcmd.model.DatabaseManager;
-import ua.com.juja.sqlcmd.model.entity.UserActions;
-import ua.com.juja.sqlcmd.model.UserActionsRepository;
+import ua.com.juja.sqlcmd.model.entity.Student;
+import ua.com.juja.sqlcmd.model.*;
+import ua.com.juja.sqlcmd.model.entity.UserAction;
 
 import java.util.*;
 
@@ -18,18 +17,21 @@ public abstract class ServiceImpl implements Service {
     protected abstract DatabaseManager getManager();
 
     @Autowired
-    private UserActionsRepository userActions;
+    private UserActionRepository userActions;
+
+    @Autowired
+    private StudentsRepository students;
 
     @Override
     public List<String> commandsList() {
-        return Arrays.asList("help", "databases", "list", "hello", "createDatabase", "student");
+        return Arrays.asList("help", "databases", "list", "hello", "createDatabase", "student", "students");
     }
 
     @Override
     public DatabaseManager connect(String databaseName, String userName, String password) {
         DatabaseManager manager = getManager();
         manager.connect(databaseName, userName, password);
-        userActions.save(new UserActions(userName, databaseName, "CONNECT"));
+        userActions.save(new UserAction(userName, databaseName, "CONNECT"));
         return manager;
     }
 
@@ -55,25 +57,37 @@ public abstract class ServiceImpl implements Service {
             }
         }
 
-        userActions.save(new UserActions(manager.getUserName(),
-                manager.getDatabaseName(), "FIND(" + tableName + ")"));
+        userActions.save(new UserAction(manager.getUserName(), manager.getDatabaseName(),
+                "FIND(" + tableName +  ")"));
 
         return result;
     }
 
     @Override
     public Set<String> tables(DatabaseManager manager) {
-        UserActions action = new UserActions(manager.getUserName(), manager.getDatabaseName(), "TABLES");
+        UserAction action = new UserAction(manager.getUserName(),
+                manager.getDatabaseName(), "TABLES");
         userActions.save(action);
+        
         return manager.getTableNames();
     }
 
     @Override
-    public List<UserActions> getAllFor(String userName) {
+    public List<UserAction> getAllFor(String userName) {
         if (userName == null) {
-            throw new IllegalArgumentException("User name can't be null!");
+            throw new IllegalArgumentException("User name cant be null!");
         }
+
         return userActions.findByUserName(userName);
     }
 
+    @Override
+    public List<Student> getAllForStudent() {
+        return students.findAll();
+    }
+
+    @Override
+    public void createStudent(String name, int age) {
+        students.save(new Student(name, age));
+    }
 }

@@ -25,11 +25,6 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public Set<String> getDatabasesNames() {
-        return new LinkedHashSet<>();
-    }
-
-    @Override
     public void connect(String database, String userName, String password) {
         // do nothing
     }
@@ -71,11 +66,6 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void createDatabase(String databaseName) {
-
-    }
-
-    @Override
     public String getDatabaseName() {
         return "";
     }
@@ -83,5 +73,15 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     @Override
     public String getUserName() {
         return "";
+    }
+
+    @Override
+    public Set<String> getDatabasesNames() {
+        return new LinkedHashSet<>();
+    }
+
+    @Override
+    public void createDatabase(String name) {
+        // do nothing
     }
 }

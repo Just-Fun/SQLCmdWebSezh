@@ -1,7 +1,8 @@
 package ua.com.juja.sqlcmd.service;
 
+import ua.com.juja.sqlcmd.model.entity.Student;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
-import ua.com.juja.sqlcmd.model.entity.UserActions;
+import ua.com.juja.sqlcmd.model.entity.UserAction;
 
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,9 @@ public interface Service {
 
     Set<String> tables(DatabaseManager manager);
 
+    List<UserAction> getAllFor(String userName);
 
-    List<UserActions> getAllFor(String userName);
+    List<Student> getAllForStudent();
+
+    void createStudent(String name, int age);
 }

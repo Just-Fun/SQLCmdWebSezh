@@ -14,8 +14,6 @@ public interface DatabaseManager {
 
     Set<String> getTableNames();
 
-    Set<String> getDatabasesNames();
-
     void connect(String database, String userName, String password);
 
     void clear(String tableName);
@@ -28,9 +26,11 @@ public interface DatabaseManager {
 
     boolean isConnected();
 
-    void createDatabase(String databaseName);
-
     String getDatabaseName();
 
     String getUserName();
+
+    Set<String> getDatabasesNames();
+
+    void createDatabase(String name);
 }
