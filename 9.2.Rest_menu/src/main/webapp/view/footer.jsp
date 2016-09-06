@@ -4,7 +4,8 @@
 
 <c:set var="baseURL" value="${fn:replace(pageContext.request.requestURL, pageContext.request.requestURI, pageContext.request.contextPath)}" />
 <br>
-<link rel="stylesheet" href="${baseURL}/foo.css" />
+<%-- <link rel="stylesheet" href="${baseURL}/foo.css" /> --%>
+<%-- Comment --%>
 <script src="${baseURL}/"></script>
 <a href="${baseURL}/menu">menu</a>
 Copyright 2015 JuJa.com.ua (all rights reserved)
