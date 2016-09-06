@@ -6,11 +6,39 @@
     </head>
     <body>
         <table border="1">
+        <tr>
+            <td>
+                action
+            </td>
+             <td>
+                 id
+             </td>
+             <td>
+                userName
+             </td>
+             <td>
+                dbName
+             </td>
+        </tr>
+        <tr>
+
+        </tr>
+
             <c:forEach items="${allActions}" var="userAction">
                 <tr>
                     <td>
                         ${userAction.action}
                     </td>
+                     <td>
+                         ${userAction.id}
+                     </td>
+                     <%-- Comment --%>
+                     <td>
+                        ${userAction.connection.userName}
+                     </td>
+                     <td>
+                        ${userAction.connection.dbName}
+                     </td>
                 </tr>
             </c:forEach>
         </table>

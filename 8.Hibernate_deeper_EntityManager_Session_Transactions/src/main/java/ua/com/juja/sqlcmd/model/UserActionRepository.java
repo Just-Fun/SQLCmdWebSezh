@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by oleksandr.baglai on 19.12.2015.
  */
-public interface UserActionRepository extends CrudRepository<UserAction, Integer>, UserActionRepositoryCustom {
+public interface UserActionRepository extends /*JpaRepository*/CrudRepository<UserAction, Integer>, UserActionRepositoryCustom {
 
     @Query(value = "SELECT ua FROM UserAction ua WHERE ua.connection.userName = :userName")
     List<UserAction> findByUserName(@Param("userName") String userName);
