@@ -20,9 +20,10 @@ public class MainController {
     @Autowired
     private Service service;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String main() {
-        return "redirect:/menu";
+    @RequestMapping(value = {"/menu", "/"}, method = RequestMethod.GET)
+    public String menu(Model model) {
+        model.addAttribute("items", service.commandsList());
+        return "menu";
     }
 
     @RequestMapping(value = "/help", method = RequestMethod.GET)
@@ -88,12 +89,6 @@ public class MainController {
         model.addAttribute("allActions", service.getAll());
 
         return "allActions";
-    }
-
-    @RequestMapping(value = "/menu", method = RequestMethod.GET)
-    public String menu(Model model) {
-        model.addAttribute("items", service.commandsList());
-        return "menu";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
