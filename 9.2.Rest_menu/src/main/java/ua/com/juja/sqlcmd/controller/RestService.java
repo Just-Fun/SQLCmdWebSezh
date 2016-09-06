@@ -21,4 +21,9 @@ public class RestService {
         return service.commandsList();
     }
 
+    @RequestMapping(value = "/help/fun", method = RequestMethod.GET)
+    public String justFun() {
+        return "Hi there! :)";
+    }
+
 }
