@@ -1,0 +1,3 @@
+DEBUG main org.eclipse.jetty.util.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.eclipse.jetty.util.log) via org.eclipse.jetty.util.log.Slf4jLog
+DEBUG main org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexCreator - Analyzing class class ua.com.juja.sqlcmd.model.entity.DatabaseConnection for index information.
+DEBUG main org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexCreator - Analyzing class class ua.com.juja.sqlcmd.model.entity.UserAction for index information.
