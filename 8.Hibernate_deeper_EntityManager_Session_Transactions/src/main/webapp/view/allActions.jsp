@@ -19,8 +19,8 @@
                 <tr>
                     <td>${userAction.action}</td>
                     <td>${userAction.id}</td>
-                    <td>${userAction.userName}</td>
-                    <td>${userAction.dbName}</td>
+                    <td>${userAction.connection.userName}</td>
+                    <td>${userAction.connection.dbName}</td>
                      <%-- Comment --%>
                 </tr>
             </c:forEach>
